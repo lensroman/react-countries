@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from "react-router-dom"
+import {
+  useParams,
+  useNavigate
+} from "react-router-dom"
 import axios from 'axios'
 
 import { IoArrowBack } from "react-icons/io5"
 import { searchByCountry } from '../axios-config'
 
 import { Button } from "../components/Button"
+import { Info } from '../components/Info'
 
 
 export const Details = () => {
@@ -18,14 +22,12 @@ export const Details = () => {
     axios.get(searchByCountry(name)).then(({data}) => setCountry(data[0]))
   }, [name])
 
-  console.log(country)
-
   return (
     <>
       <Button onClick={() => navigate(-1)}>
         <IoArrowBack /> Back
       </Button>
-      {name}
+      {country && <Info {...country} navigate={navigate} />}
     </>
   )
 }
